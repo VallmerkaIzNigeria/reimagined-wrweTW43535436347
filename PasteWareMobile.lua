@@ -703,6 +703,7 @@ local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
         :AddColorPicker("Color", {Default = Color3.fromRGB(54, 57, 241)})
         :OnChanged(function()
             if typeof(fov_circle) == "userdata" and fov_circle.Visible ~= nil then
+                print("[DEBUG] fov_circle.Visible set", Toggles.Visible.Value)
                 fov_circle.Visible = Toggles.Visible.Value
             end
             SilentAimSettings.FOVVisible = Toggles.Visible.Value
@@ -774,6 +775,7 @@ resume(create(function()
         
         if Toggles.Visible.Value then 
             if typeof(fov_circle) == "userdata" and fov_circle.Visible ~= nil then
+                print("[DEBUG] fov_circle.Visible set", Toggles.Visible.Value)
                 fov_circle.Visible = Toggles.Visible.Value
             end
             fov_circle.Color = Options.Color.Value
@@ -899,7 +901,10 @@ local function updateESPBoxes()
         for player, box in pairs(espBoxes) do
             if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
                 if teamCheckEnabled and player.Team == Players.LocalPlayer.Team then
-                    box.Visible = false
+                    if typeof(box) == "userdata" and box.Visible ~= nil then
+                        print("[DEBUG] box.Visible set false")
+                        box.Visible = false
+                    end
                 else
                     local rootPart = player.Character.HumanoidRootPart
                     local screenPosition, onScreen = Camera:WorldToViewportPoint(rootPart.Position)
@@ -910,13 +915,22 @@ local function updateESPBoxes()
                         local boxHeight = 50 * scaleFactor
                         box.Size = Vector2.new(boxWidth, boxHeight)
                         box.Position = Vector2.new(screenPosition.X - boxWidth / 2, screenPosition.Y - boxHeight / 2)
-                        box.Visible = true
+                        if typeof(box) == "userdata" and box.Visible ~= nil then
+                            print("[DEBUG] box.Visible set true")
+                            box.Visible = true
+                        end
                     else
-                        box.Visible = false
+                        if typeof(box) == "userdata" and box.Visible ~= nil then
+                            print("[DEBUG] box.Visible set false")
+                            box.Visible = false
+                        end
                     end
                 end
             else
-                box.Visible = false
+                if typeof(box) == "userdata" and box.Visible ~= nil then
+                    print("[DEBUG] box.Visible set false")
+                    box.Visible = false
+                end
             end
         end
     end
@@ -927,7 +941,10 @@ local function updateTracers()
         for player, tracer in pairs(espTracers) do
             if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
                 if teamCheckEnabled and player.Team == Players.LocalPlayer.Team then
-                    tracer.Visible = false
+                    if typeof(tracer) == "userdata" and tracer.Visible ~= nil then
+                        print("[DEBUG] tracer.Visible set false")
+                        tracer.Visible = false
+                    end
                 else
                     local rootPart = player.Character.HumanoidRootPart
                     local screenPosition, onScreen = Camera:WorldToViewportPoint(rootPart.Position)
@@ -936,13 +953,22 @@ local function updateTracers()
                         local targetPosition = Vector2.new(screenPosition.X, screenPosition.Y)
                         tracer.From = smoothInterpolation(tracer.From, screenCenter, 0.1)
                         tracer.To = smoothInterpolation(tracer.To, targetPosition, 0.1)
-                        tracer.Visible = true
+                        if typeof(tracer) == "userdata" and tracer.Visible ~= nil then
+                            print("[DEBUG] tracer.Visible set true")
+                            tracer.Visible = true
+                        end
                     else
-                        tracer.Visible = false
+                        if typeof(tracer) == "userdata" and tracer.Visible ~= nil then
+                            print("[DEBUG] tracer.Visible set false")
+                            tracer.Visible = false
+                        end
                     end
                 end
             else
-                tracer.Visible = false
+                if typeof(tracer) == "userdata" and tracer.Visible ~= nil then
+                    print("[DEBUG] tracer.Visible set false")
+                    tracer.Visible = false
+                end
             end
         end
     end
@@ -953,18 +979,30 @@ local function updateNameTags()
         for player, nameTag in pairs(espNameTags) do
             if player.Character and player.Character:FindFirstChild("Head") then
                 if teamCheckEnabled and player.Team == Players.LocalPlayer.Team then
-                    nameTag.Visible = false
+                    if typeof(nameTag) == "userdata" and nameTag.Visible ~= nil then
+                        print("[DEBUG] nameTag.Visible set false")
+                        nameTag.Visible = false
+                    end
                 else
                     local headPosition, onScreen = Camera:WorldToViewportPoint(player.Character.Head.Position)
                     if onScreen then
                         nameTag.Position = Vector2.new(headPosition.X, headPosition.Y - 30)
-                        nameTag.Visible = true
+                        if typeof(nameTag) == "userdata" and nameTag.Visible ~= nil then
+                            print("[DEBUG] nameTag.Visible set true")
+                            nameTag.Visible = true
+                        end
                     else
-                        nameTag.Visible = false
+                        if typeof(nameTag) == "userdata" and nameTag.Visible ~= nil then
+                            print("[DEBUG] nameTag.Visible set false")
+                            nameTag.Visible = false
+                        end
                     end
                 end
             else
-                nameTag.Visible = false
+                if typeof(nameTag) == "userdata" and nameTag.Visible ~= nil then
+                    print("[DEBUG] nameTag.Visible set false")
+                    nameTag.Visible = false
+                end
             end
         end
     end
@@ -1065,17 +1103,26 @@ espbox:AddToggle("TeamCheck", {
         teamCheckEnabled = state
         for player, box in pairs(espBoxes) do
             if player.Team == Players.LocalPlayer.Team then
-                box.Visible = false
+                if typeof(box) == "userdata" and box.Visible ~= nil then
+                    print("[DEBUG] box.Visible set false")
+                    box.Visible = false
+                end
             end
         end
         for player, tracer in pairs(espTracers) do
             if player.Team == Players.LocalPlayer.Team then
-                tracer.Visible = false
+                if typeof(tracer) == "userdata" and tracer.Visible ~= nil then
+                    print("[DEBUG] tracer.Visible set false")
+                    tracer.Visible = false
+                end
             end
         end
         for player, nameTag in pairs(espNameTags) do
             if player.Team == Players.LocalPlayer.Team then
-                nameTag.Visible = false
+                if typeof(nameTag) == "userdata" and nameTag.Visible ~= nil then
+                    print("[DEBUG] nameTag.Visible set false")
+                    nameTag.Visible = false
+                end
             end
         end
     end,
