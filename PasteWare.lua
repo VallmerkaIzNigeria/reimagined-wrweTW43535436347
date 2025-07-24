@@ -708,6 +708,7 @@ local FieldOfViewBOX = GeneralTab:AddLeftTabbox("Field Of View") do
         :AddColorPicker("Color", {Default = Color3.fromRGB(54, 57, 241)})
         :OnChanged(function()
             if typeof(fov_circle) == "userdata" and fov_circle.Visible ~= nil then
+                print("[DEBUG] fov_circle.Visible set", Toggles.Visible.Value)
                 fov_circle.Visible = Toggles.Visible.Value
             end
             SilentAimSettings.FOVVisible = Toggles.Visible.Value
